@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Cta from '../components/Cta.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FaqList from '../components/FaqList.astro';
+import { faqs } from '../data/content';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  },
+];
+---
+<BaseLayout
+  title="Perguntas Frequentes sobre E-commerce | AF Negócios"
+  description="Prazos, plataformas (Nuvemshop, Shopify, VTEX, WooCommerce), formatos de contratação e suporte pós-entrega: tire suas dúvidas sobre a AF."
+  breadcrumbs={[{ name: 'Perguntas frequentes', href: '/faq' }]}
+  schema={schema}
+>
+  <section class="page-hero page-hero-simple section-wrap">
+    <div class="page-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> Perguntas frequentes</span>
+      <h1>Respostas para começar <em>com clareza.</em></h1>
+      <p class="hero-lead">Informações sobre prazos, formatos de trabalho, plataformas e suporte, conforme o conteúdo do site de referência.</p>
+      <Cta text="Falar com um especialista" />
+    </div>
+    <div class="faq-hero-mark" aria-hidden="true"><Icon name="message" /><span>Tem uma pergunta<br />que não está aqui?</span></div>
+  </section>
+
+  <section class="section-wrap faq-page-section">
+    <SectionHeading eyebrow="Dúvidas comuns">Perguntas que você <em>pode ter.</em></SectionHeading>
+    <FaqList items={faqs} />
+    <div class="faq-contact-box">
+      <div>
+        <span class="eyebrow">Ainda quer conversar?</span>
+        <h2 class="faq-contact-title">Vamos entender juntos.</h2>
+        <p>A equipe pode ajudar a esclarecer o que faz mais sentido para sua operação.</p>
+      </div>
+      <Cta text="Falar com especialista" />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from './Icon.astro';
+import type { IconName } from '../data/icons';
+import { SITE, LEGAL, MAIL_URL, WA_URL } from '../data/site';
+
+export interface TocItem { id: string; label: string }
+
+interface Props {
+  path: '/privacidade' | '/termos' | '/lgpd';
+  seoTitle: string;
+  seoDescription: string;
+  eyebrow: string;
+  /** H1 dividido: primeira parte normal, segunda em itálico terracota. */
+  titleLead: string;
+  titleAccent: string;
+  lead: string;
+  icon: IconName;
+  markText: string;
+  toc: TocItem[];
+}
+
+const { path, seoTitle, seoDescription, eyebrow, titleLead, titleAccent, lead, icon, markText, toc } = Astro.props;
+
+const updated = new Date(`${LEGAL.updatedAt}T12:00:00`);
+const updatedLabel = updated.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const related = [
+  { href: '/privacidade', label: 'Política de Privacidade', icon: 'hand' as IconName },
+  { href: '/termos', label: 'Termos de Uso', icon: 'window' as IconName },
+  { href: '/lgpd', label: 'LGPD e seus direitos', icon: 'check' as IconName },
+].filter((r) => r.href !== path);
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: seoTitle,
+    url: new URL(path, Astro.site).href,
+    dateModified: LEGAL.updatedAt,
+    inLanguage: 'pt-BR',
+    publisher: { '@id': new URL('/#organization', Astro.site).href },
+  },
+];
+---
+<BaseLayout title={seoTitle} description={seoDescription} breadcrumbs={[{ name: `${titleLead} ${titleAccent}`.replace(/\.$/, ''), href: path }]} schema={schema}>
+  <section class="page-hero page-hero-simple legal-hero section-wrap">
+    <div class="page-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> {eyebrow}</span>
+      <h1>{titleLead} <em>{titleAccent}</em></h1>
+      <p class="hero-lead">{lead}</p>
+      <p class="legal-updated"><Icon name="check" /> Última atualização: <time datetime={LEGAL.updatedAt}>{updatedLabel}</time></p>
+    </div>
+    <div class="faq-hero-mark legal-hero-mark" aria-hidden="true"><Icon name={icon} /><span set:html={markText} /></div>
+  </section>
+
+  <div class="section-wrap legal-layout">
+    <aside class="legal-toc" aria-label="Nesta página">
+      <span class="eyebrow">Nesta página</span>
+      <ol role="list">
+        {toc.map((item, i) => (
+          <li><a href={`#${item.id}`}><span class="legal-toc-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{item.label}</a></li>
+        ))}
+      </ol>
+    </aside>
+
+    <article class="legal-content">
+      <slot />
+
+      <div class="faq-contact-box legal-contact-box">
+        <div>
+          <span class="eyebrow">Dúvidas sobre este documento?</span>
+          <h2 class="faq-contact-title">Fale com a nossa equipe.</h2>
+          <p>Respondemos pelo e-mail <a class="inline-link" href={MAIL_URL}>{SITE.email}</a> ou pelo WhatsApp {SITE.phoneDisplay}.</p>
+        </div>
+        <a class="button button-primary" href={WA_URL} target="_blank" rel="noopener noreferrer">Falar no WhatsApp <Icon name="arrow" /></a>
+      </div>
+
+      <nav class="legal-related" aria-label="Outros documentos">
+        <span class="eyebrow">Documentos relacionados</span>
+        <div class="more-solutions-links">
+          {related.map((r) => (
+            <a class="solution-list-link" href={r.href}><Icon name={r.icon} /><span>{r.label}</span><Icon name="arrow" /></a>
+          ))}
+        </div>
+      </nav>
+    </article>
+  </div>
+</BaseLayout>

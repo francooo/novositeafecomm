@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Cta from '../components/Cta.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import partnershipImage from '../assets/consultoria-parceria.png';
+import operationImage from '../assets/operacao-envios.png';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'Sobre a AF Negócios Digitais',
+    url: new URL('/sobre', Astro.site).href,
+    about: { '@id': new URL('/#organization', Astro.site).href },
+  },
+];
+---
+<BaseLayout
+  title="Sobre a AF Negócios Digitais | Especialistas em E-commerce"
+  description="Especialistas em e-commerce desde 2024: estratégia, tecnologia e parceria de longo prazo para transformar negócios digitais. Conheça a AF."
+  ogImage={partnershipImage}
+  breadcrumbs={[{ name: 'Sobre', href: '/sobre' }]}
+  schema={schema}
+>
+  <section class="page-hero section-wrap">
+    <div class="page-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> Quem somos</span>
+      <h1>Tecnologia com <em>conversa de verdade.</em></h1>
+      <p class="hero-lead">Somos especialistas em e-commerce e trabalhamos para transformar negócios com tecnologia e estratégia.</p>
+      <p>O site de referência apresenta uma empresa focada em comércio digital desde 2024. Nesta nova direção, a marca passa a ser AF Negócios Digitais — mantendo a experiência, a proximidade e o compromisso com evolução contínua.</p>
+      <Cta text="Vamos nos conhecer" />
+    </div>
+    <div class="page-hero-image">
+      <Image src={partnershipImage} alt="Empreendedora e consultor trabalhando juntos" widths={[420, 640, 900]} sizes="(max-width: 780px) 92vw, 520px" format="webp" quality={76} loading="eager" fetchpriority="high" />
+      <span class="photo-caption"><span class="caption-mark" aria-hidden="true">AF</span><span><b>Próximos do negócio</b><small>Estratégia com pessoas no centro</small></span></span>
+    </div>
+  </section>
+
+  <section class="section-wrap value-section">
+    <SectionHeading eyebrow="O que nos guia">Uma parceria construída <em>em conjunto.</em></SectionHeading>
+    <div class="value-grid">
+      <article><Icon name="compass" /><h3>Especialistas em e-commerce</h3><p>Foco no comércio digital, nas plataformas e nos desafios de quem opera uma loja virtual.</p></article>
+      <article><Icon name="chart" /><h3>Método orientado a dados</h3><p>Decisões apoiadas por métricas de conversão, comportamento do cliente e contexto do segmento.</p></article>
+      <article><Icon name="sparkles" /><h3>IA aplicada à realidade</h3><p>Uso prático de inteligência artificial para resolver problemas concretos da operação.</p></article>
+      <article><Icon name="heart" /><h3>Parceria de longo prazo</h3><p>Relações duradouras e evolução conjunta, para além da entrega pontual.</p></article>
+    </div>
+  </section>
+
+  <section class="about-band">
+    <div class="section-wrap about-band-inner about-band-reverse">
+      <div class="about-copy">
+        <SectionHeading eyebrow="Nosso compromisso" description="Tecnologia só faz sentido quando resolve uma necessidade real.">Crescer junto com <em>seu negócio.</em></SectionHeading>
+        <p>Por isso, começamos entendendo o cenário, definimos prioridades com você e acompanhamos o que acontece depois da entrega. O objetivo é que cada iniciativa tenha contexto, propósito e um caminho claro de evolução.</p>
+        <a class="text-link text-link-underline" href="/processo">Conheça nosso processo <Icon name="arrow" /></a>
+      </div>
+      <div class="about-image">
+        <Image src={operationImage} alt="Empreendedora preparando um pedido da loja online" widths={[420, 640, 900]} sizes="(max-width: 780px) 92vw, 520px" format="webp" quality={76} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap centered-cta">
+    <SectionHeading eyebrow="Vamos conversar" description="Uma conversa inicial ajuda a entender sua operação e o próximo passo possível.">Conte para nós o que você está <em>construindo.</em></SectionHeading>
+    <Cta text="Agendar conversa" />
+  </section>
+</BaseLayout>

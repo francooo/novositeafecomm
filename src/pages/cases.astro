@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Cta from '../components/Cta.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { testimonials } from '../data/content';
+---
+<BaseLayout
+  title="Cases e Depoimentos de Clientes | AF Negócios Digitais"
+  description="Depoimentos de clientes da AF Negócios Digitais sobre desenvolvimento de e-commerce, automação com IA e integração de ERP."
+  breadcrumbs={[{ name: 'Cases e depoimentos', href: '/cases' }]}
+>
+  <section class="page-hero page-hero-simple section-wrap">
+    <div class="page-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> Histórias de clientes</span>
+      <h1>Vozes de quem já <em>trabalhou com a AF.</em></h1>
+      <p class="hero-lead">A página de referência apresenta depoimentos de clientes sobre desenvolvimento, automação e integração.</p>
+      <p>Os relatos abaixo foram resumidos a partir dos depoimentos publicados no site de referência. Os números e a autorização de divulgação devem ser confirmados antes da publicação. Como a referência não traz estudos de caso completos, não acrescentamos contexto além do texto publicado.</p>
+      <Cta text="Falar sobre um projeto parecido" />
+    </div>
+    <div class="case-hero-mark" aria-hidden="true"><span>AF</span><i></i><small>Histórias construídas<br />em parceria</small></div>
+  </section>
+
+  <section class="case-band case-page-band">
+    <div class="section-wrap">
+      <SectionHeading eyebrow="Depoimentos publicados" description="Os resultados quantitativos abaixo foram publicados como parte dos depoimentos na referência e devem ser confirmados antes de uso promocional.">
+        Experiências compartilhadas <em>por clientes.</em>
+      </SectionHeading>
+      <div class="testimonial-grid">{testimonials.map((item) => <TestimonialCard item={item} />)}</div>
+    </div>
+  </section>
+
+  <section class="section-wrap case-note-section">
+    <div class="case-note">
+      <span class="eyebrow">Sobre este conteúdo</span>
+      <p>Para transformar estes relatos em estudos de caso completos, será necessário acrescentar, com aprovação, o contexto de cada projeto, o desafio, a solução implantada e a autorização dos clientes para divulgar os dados.</p>
+    </div>
+    <Cta text="Quero conversar sobre meu desafio" />
+  </section>
+</BaseLayout>

@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Icon from '../../../components/Icon.astro';
+import Cta from '../../../components/Cta.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import { NUVEMSHOP_PATH } from '../../../data/services';
+import { SITE, TEL_URL, MAIL_URL, WA_URL } from '../../../data/site';
+import type { IconName } from '../../../data/icons';
+
+const supportCards: [string, string, IconName][] = [
+  ['Implementação completa', 'Setup inicial, configuração de produtos, pagamento e frete.', 'store'],
+  ['Customização avançada', 'Design personalizado, funcionalidades, integrações e otimização para conversão.', 'sparkles'],
+  ['Migração de plataforma', 'Migração de produtos e clientes, preservação de SEO e planejamento da transição.', 'workflow'],
+  ['Suporte contínuo', 'Atualizações, acompanhamento de performance, suporte técnico e consultoria.', 'message'],
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Implementação e customização de lojas Nuvemshop',
+  serviceType: 'Desenvolvimento de loja virtual Nuvemshop',
+  description:
+    'Parceiro Silver Nuvemshop: implementação especializada, customização, migração de plataforma e suporte contínuo para lojas virtuais.',
+  url: new URL(NUVEMSHOP_PATH, Astro.site).href,
+  provider: { '@id': new URL('/#organization', Astro.site).href },
+  areaServed: { '@type': 'Country', name: 'Brasil' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Serviços Nuvemshop',
+    itemListElement: supportCards.map(([name]) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+  },
+};
+---
+<BaseLayout
+  title="Agência Parceira Nuvemshop | AF Negócios Digitais"
+  description="Parceiro Silver Nuvemshop: implementação, customização, migração de plataforma com preservação de SEO e suporte contínuo para sua loja virtual."
+  breadcrumbs={[{ name: 'Desenvolvimento', href: '/servicos/desenvolvimento' }, { name: 'Nuvemshop', href: NUVEMSHOP_PATH }]}
+  schema={[serviceSchema]}
+>
+  <Breadcrumb items={[{ name: 'Início', href: '/' }, { name: 'Desenvolvimento', href: '/servicos/desenvolvimento' }, { name: 'Nuvemshop' }]} />
+
+  <section class="service-hero section-wrap nuvemshop-hero">
+    <div class="service-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> Parceiro Silver Nuvemshop</span>
+      <h1>Sua loja na<br /><em>Nuvemshop.</em></h1>
+      <p class="service-subtitle">Faça seu e-commerce crescer com uma plataforma preparada para vender online.</p>
+      <p>A página de referência informa que a empresa é parceira Silver da Nuvemshop e oferece implementação especializada, customização e suporte para a loja virtual.</p>
+      <div class="hero-actions">
+        <Cta text="Falar sobre minha loja" />
+        <a class="button button-quiet" href={TEL_URL}>Ligar {SITE.phoneDisplay}</a>
+      </div>
+    </div>
+    <div class="service-hero-art nuvemshop-art" aria-hidden="true">
+      <div class="service-art-circle"></div>
+      <div class="service-art-icon"><Icon name="store" /></div>
+      <span class="service-art-chip chip-one"><Icon name="check" /> Implantação</span>
+      <span class="service-art-chip chip-two"><Icon name="sparkles" /> Personalização</span>
+      <span class="service-art-caption">Loja virtual pronta<br />para acompanhar seu plano</span>
+    </div>
+  </section>
+
+  <section class="service-facts-band" aria-label="Resumo da parceria">
+    <div class="section-wrap service-facts-inner">
+      <div><span class="eyebrow">Plataforma</span><b>Nuvemshop</b><small>Comércio digital</small></div>
+      <div><span class="eyebrow">Parceria</span><b>Silver</b><small>Conforme informação do site de referência</small></div>
+      <div><span class="eyebrow">Atuação</span><b>Implementar</b><small>Personalizar e integrar</small></div>
+    </div>
+  </section>
+
+  <section class="section-wrap nuvemshop-about">
+    <div class="nuvemshop-about-copy">
+      <SectionHeading eyebrow="Uma plataforma para vender online" description="A Nuvemshop é apresentada no site de referência como uma plataforma de e-commerce para negócios da América Latina.">
+        Tecnologia com espaço <em>para crescer.</em>
+      </SectionHeading>
+      <p>A página original destaca facilidade de uso, escalabilidade e integrações como pontos importantes da plataforma. Informações estatísticas sobre a Nuvemshop não são reproduzidas aqui; os dados de mercado devem ser confirmados antes de uma publicação.</p>
+    </div>
+    <div class="nuvemshop-benefits">
+      <article><Icon name="window" /><h3>Facilidade de uso</h3><p>Uma interface para criar e gerenciar a loja sem exigir conhecimento técnico avançado.</p></article>
+      <article><Icon name="chart" /><h3>Escalabilidade</h3><p>Uma estrutura que pode acompanhar mudanças de volume e as necessidades do negócio.</p></article>
+      <article><Icon name="plug" /><h3>Integrações</h3><p>Aplicativos e integrações para ampliar recursos e conectar a operação.</p></article>
+    </div>
+  </section>
+
+  <section class="service-process-band">
+    <div class="section-wrap">
+      <SectionHeading eyebrow="Como podemos apoiar">Da implementação ao <em>suporte contínuo.</em></SectionHeading>
+      <div class="nuvemshop-services-grid">
+        {supportCards.map(([title, body, ico]) => (
+          <article class="nuvemshop-service-card"><span class="icon-tile"><Icon name={ico} /></span><h3>{title}</h3><p>{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap service-cta-section">
+    <div class="service-cta-card">
+      <div>
+        <span class="eyebrow">Parceiro Silver Nuvemshop</span>
+        <h2>Pronto para criar ou evoluir sua loja?</h2>
+        <p>Converse com a AF Negócios Digitais sobre implementação, customização e integrações.</p>
+      </div>
+      <div class="service-cta-actions">
+        <Cta text="Falar sobre Nuvemshop" />
+        <a href={WA_URL} class="text-link" target="_blank" rel="noopener noreferrer">WhatsApp <Icon name="arrow" /></a>
+        <a href={MAIL_URL} class="text-link">Enviar e-mail <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

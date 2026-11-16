@@ -1,0 +1,20 @@
+/* Tokens do design system AF Negócios Digitais (PDF §2–4). */
+:root {
+  --paper: #f7f4ec;
+  --paper-2: #eee9dc;
+  --cream: #fcfaf5;
+  --green: #254c3a;
+  --green-deep: #18392d;
+  --green-soft: #dfe8df;
+  --terracotta: #c77658;
+  --terracotta-soft: #f0dfd5;
+  --ink: #24362c;
+  --muted: #69746b;
+  --line: rgba(37, 76, 58, .15);
+  --white: #fffefa;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', 'Avenir Next', Avenir, sans-serif;
+  --shadow: 0 20px 55px rgba(31, 55, 43, .10);
+  --radius: 18px;
+  --content: 1160px;
+}

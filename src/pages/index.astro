@@ -1,0 +1,117 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Cta from '../components/Cta.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProcessGrid from '../components/ProcessGrid.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import FaqList from '../components/FaqList.astro';
+import FinalCta from '../components/FinalCta.astro';
+import heroImage from '../assets/hero-home.png';
+import partnershipImage from '../assets/consultoria-parceria.png';
+import { services } from '../data/services';
+import { faqs, testimonials } from '../data/content';
+---
+<BaseLayout
+  title="AF Negócios Digitais | Consultoria e Soluções para E-commerce"
+  description="Consultoria, desenvolvimento de lojas virtuais, Nuvemshop, ERP, integrações, IA e tráfego pago. Tecnologia e parceria para seu e-commerce crescer desde 2024."
+>
+  <section class="home-hero section-wrap">
+    <div class="hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> Parceira para seu próximo passo</span>
+      <h1>Construindo<br /><em>seu negócio.</em></h1>
+      <p class="hero-lead">Tecnologia e parceria para sua operação de e-commerce crescer com confiança.</p>
+      <p class="hero-description">Estratégia, desenvolvimento e automação conectados ao que move seu negócio: uma operação digital melhor para seus clientes e para sua equipe.</p>
+      <div class="hero-actions">
+        <Cta text="Conte seu desafio" />
+        <a class="button button-quiet" href="#solucoes">Conheça as soluções <Icon name="arrow" /></a>
+      </div>
+      <div class="hero-proof"><span><Icon name="check" /> Desde 2024</span><span><Icon name="check" /> Especialistas em e-commerce</span></div>
+    </div>
+    <div class="hero-visual">
+      <Image
+        src={heroImage}
+        alt="Empreendedora revisando a operação de sua loja digital em um estúdio acolhedor"
+        widths={[420, 640, 860, 1000]}
+        sizes="(max-width: 780px) 90vw, 500px"
+        format="webp"
+        quality={78}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="photo-caption"><span class="caption-mark" aria-hidden="true">AF</span><span><b>Estratégia com proximidade</b><small>Do primeiro diagnóstico à evolução contínua</small></span></div>
+      <div class="hero-note" aria-hidden="true"><span class="hero-note-icon"><Icon name="leaf" /></span><span>Feito junto<br />com você</span></div>
+    </div>
+    <div class="hero-scroll-note" aria-hidden="true"><span></span> Continue conhecendo</div>
+  </section>
+
+  <section class="trust-band" aria-label="O que conectamos">
+    <div class="trust-inner"><span>O que conectamos</span><b>Estratégia</b><i></i><b>Tecnologia</b><i></i><b>Operação</b><i></i><b>Crescimento</b></div>
+  </section>
+
+  <section class="section-wrap services-section" id="solucoes">
+    <SectionHeading eyebrow="Como podemos ajudar" description="Apoiamos negócios digitais com serviços que se conectam à realidade da sua operação.">
+      Soluções para construir <em>seu próximo capítulo.</em>
+    </SectionHeading>
+    <div class="service-grid">
+      {services.map((s) => <ServiceCard href={s.path} title={s.title} text={`${s.subtitle}.`} icon={s.icon} />)}
+    </div>
+    <div class="more-services-note">Quer começar pelo que mais importa agora? <a class="inline-link" href="/contato">Vamos conversar</a></div>
+  </section>
+
+  <section class="about-band">
+    <div class="section-wrap about-band-inner">
+      <div class="about-image">
+        <Image src={partnershipImage} alt="Empreendedora e consultor analisando o negócio juntos" widths={[420, 640, 900]} sizes="(max-width: 780px) 92vw, 520px" format="webp" quality={76} />
+        <span class="image-stamp" aria-hidden="true">Parceria<br />de verdade</span>
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">Um time ao lado do seu negócio</span>
+        <h2>Não entregamos só tecnologia. <em>Construímos com você.</em></h2>
+        <p>Desde 2024, a empresa trabalha para transformar negócios digitais com tecnologia e estratégia. Sob a marca AF Negócios Digitais, seguimos com o mesmo foco em e-commerce, relacionamento próximo e evolução contínua.</p>
+        <div class="values-list">
+          <div><Icon name="compass" /><span><b>Especialistas em e-commerce</b><small>Foco no comércio digital e nos desafios de quem vende online.</small></span></div>
+          <div><Icon name="chart" /><span><b>Decisões orientadas por dados</b><small>Métricas e comportamento do cliente apoiam cada decisão.</small></span></div>
+          <div><Icon name="heart" /><span><b>Parceria de longo prazo</b><small>Crescer junto com o cliente, não apenas concluir uma entrega.</small></span></div>
+        </div>
+        <a class="text-link text-link-underline" href="/sobre">Conheça quem somos <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap process-section" id="processo">
+    <SectionHeading eyebrow="Um caminho claro" description="Um processo organizado para você saber o que acontece em cada etapa.">
+      Da primeira conversa à <em>evolução contínua.</em>
+    </SectionHeading>
+    <ProcessGrid compact />
+    <div class="center-link"><a class="text-link text-link-underline" href="/processo">Veja como trabalhamos <Icon name="arrow" /></a></div>
+  </section>
+
+  <section class="case-band" id="historias">
+    <div class="section-wrap">
+      <div class="case-band-heading">
+        <SectionHeading eyebrow="O que dizem nossos clientes" description="Depoimentos reproduzidos no site de referência.">
+          Histórias de quem já <em>trabalhou com a AF.</em>
+        </SectionHeading>
+        <a class="text-link text-link-underline case-heading-link" href="/cases">Ver os depoimentos <Icon name="arrow" /></a>
+      </div>
+      <div class="testimonial-grid testimonial-grid-home">
+        {testimonials.slice(0, 2).map((item) => <TestimonialCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap faq-home-section">
+    <div class="faq-home-intro">
+      <SectionHeading eyebrow="Dúvidas comuns" description="Veja respostas sobre o trabalho, as plataformas e o acompanhamento.">
+        O que você quer <em>saber primeiro?</em>
+      </SectionHeading>
+      <a class="text-link text-link-underline" href="/faq">Todas as perguntas <Icon name="arrow" /></a>
+    </div>
+    <FaqList items={faqs.slice(0, 3)} />
+  </section>
+
+  <FinalCta />
+</BaseLayout>

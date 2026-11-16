@@ -1,0 +1,6 @@
+---
+import Icon from './Icon.astro';
+interface Props { text?: string; class?: string; href?: string }
+const { text = 'Conte seu desafio', class: className = 'button button-primary', href = '/contato' } = Astro.props;
+---
+<a class={className} href={href}>{text} <Icon name="arrow" /></a>

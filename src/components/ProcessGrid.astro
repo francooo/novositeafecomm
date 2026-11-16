@@ -1,0 +1,10 @@
+---
+import { processSteps } from '../data/content';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<ol class:list={['process-grid', { 'process-grid-compact': compact }]} role="list">
+  {processSteps.map(([number, title, body]) => (
+    <li class="process-card"><span class="process-number" aria-hidden="true">{number}</span><h3>{title}</h3><p>{body}</p></li>
+  ))}
+</ol>

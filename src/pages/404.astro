@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+---
+<BaseLayout title="Página não encontrada | AF Negócios Digitais" description="A página que você procura não existe ou mudou de endereço." noindex>
+  <section class="legal-page section-wrap notfound-page">
+    <span class="eyebrow eyebrow-pill">Erro 404</span>
+    <h1>Página não encontrada</h1>
+    <p>Não encontramos esta página. Ela pode ter mudado de endereço — veja algumas soluções abaixo ou volte ao início.</p>
+    <div class="more-solutions-links">
+      {services.slice(0, 4).map((s) => (
+        <a class="solution-list-link" href={s.path}><Icon name={s.icon} /><span>{s.title}</span><Icon name="arrow" /></a>
+      ))}
+    </div>
+    <p><a class="text-link text-link-underline" href="/">Voltar ao início <Icon name="arrow" /></a></p>
+  </section>
+</BaseLayout>

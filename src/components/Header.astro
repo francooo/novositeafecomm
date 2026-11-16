@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+import Brand from './Brand.astro';
+import { services, NUVEMSHOP_PATH } from '../data/services';
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const aria = (href: string) => (current === href ? 'page' : undefined);
+---
+<header class="site-header">
+  <div class="header-inner">
+    <Brand label="AF Negócios Digitais — início" />
+    <button class="mobile-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav" data-menu-toggle><span></span><span></span></button>
+    <nav class="main-nav" id="main-nav" aria-label="Navegação principal" data-main-nav>
+      <details class="nav-services" data-nav-services>
+        <summary>Soluções <span class="chevron" aria-hidden="true">⌄</span></summary>
+        <div class="services-menu">
+          <div class="menu-intro"><span class="eyebrow">Soluções para sua operação</span><p>Estratégia, tecnologia e acompanhamento para cada etapa do e-commerce.</p></div>
+          <div class="menu-links">
+            {services.map((s) => (
+              <a class="menu-link" href={s.path} aria-current={aria(s.path)}><Icon name={s.icon} /><span>{s.title}</span></a>
+            ))}
+            <a class="menu-link" href={NUVEMSHOP_PATH} aria-current={aria(NUVEMSHOP_PATH)}><Icon name="store" /><span>Nuvemshop</span></a>
+          </div>
+        </div>
+      </details>
+      <a class="nav-link" href="/sobre" aria-current={aria('/sobre')}>Quem somos</a>
+      <a class="nav-link" href="/processo" aria-current={aria('/processo')}>Nosso processo</a>
+      <a class="nav-link" href="/cases" aria-current={aria('/cases')}>Histórias</a>
+      <a class="nav-link nav-faq" href="/faq" aria-current={aria('/faq')}>Dúvidas</a>
+      <a class="button button-small button-primary" href="/contato">Agendar conversa</a>
+    </nav>
+  </div>
+</header>

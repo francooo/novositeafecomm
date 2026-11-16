@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Cta from '../components/Cta.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProcessGrid from '../components/ProcessGrid.astro';
+import partnershipImage from '../assets/consultoria-parceria.png';
+import { processSteps } from '../data/content';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'Como a AF Negócios Digitais conduz projetos de e-commerce',
+    description: 'Processo em quatro etapas: diagnóstico, estratégia, execução e evolução contínua.',
+    step: processSteps.map(([, name, text], i) => ({ '@type': 'HowToStep', position: i + 1, name, text })),
+  },
+];
+---
+<BaseLayout
+  title="Como Trabalhamos: Processo em 4 Etapas | AF Negócios"
+  description="Diagnóstico, estratégia, execução e evolução contínua: conheça o processo transparente da AF Negócios Digitais para projetos de e-commerce."
+  ogImage={partnershipImage}
+  breadcrumbs={[{ name: 'Como trabalhamos', href: '/processo' }]}
+  schema={schema}
+>
+  <section class="page-hero page-hero-simple section-wrap">
+    <div class="page-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> Como trabalhamos</span>
+      <h1>Clareza do primeiro passo à <em>evolução contínua.</em></h1>
+      <p class="hero-lead">Um processo claro e transparente para que você saiba o que esperar em cada fase do projeto.</p>
+      <Cta text="Conversar sobre meu projeto" />
+    </div>
+    <div class="process-hero-note" aria-hidden="true"><span class="big-number">04</span><span>etapas que organizam<br />o trabalho em parceria</span></div>
+  </section>
+
+  <section class="section-wrap process-page-section">
+    <SectionHeading eyebrow="O caminho do projeto" description="Cada etapa considera as necessidades da operação e as prioridades combinadas.">Estratégia, execução e <em>acompanhamento.</em></SectionHeading>
+    <ProcessGrid />
+    <div class="process-note-box"><span class="icon-tile"><Icon name="message" /></span><p>O escopo de cada serviço muda de acordo com a necessidade. As etapas e os prazos são alinhados durante a conversa inicial.</p></div>
+  </section>
+
+  <section class="about-band">
+    <div class="section-wrap about-band-inner">
+      <div class="about-image">
+        <Image src={partnershipImage} alt="Discussão de estratégia em equipe" widths={[420, 640, 900]} sizes="(max-width: 780px) 92vw, 520px" format="webp" quality={76} />
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">Transparência em cada etapa</span>
+        <h2>Você sabe onde estamos e <em>o que vem depois.</em></h2>
+        <p>O processo combina diagnóstico, plano de ação, execução e revisão do que foi realizado. O site de referência descreve relatórios periódicos, comunicação transparente e otimizações constantes.</p>
+        <Cta text="Falar com um especialista" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

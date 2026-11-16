@@ -1,0 +1,7 @@
+---
+interface Props { label?: string }
+const { label } = Astro.props;
+---
+<a class="brand-lockup" href="/" aria-label={label}>
+  <span class="brand-mark" aria-hidden="true">AF</span><span class="brand-name">AF <b>Negócios Digitais</b></span>
+</a>

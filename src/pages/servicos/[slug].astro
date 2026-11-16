@@ -1,0 +1,151 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Cta from '../../components/Cta.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { services, NUVEMSHOP_PATH, type Service } from '../../data/services';
+import { SITE, TEL_URL, MAIL_URL } from '../../data/site';
+
+export const getStaticPaths = (() =>
+  services.map((service) => ({ params: { slug: service.slug }, props: { service } }))) satisfies GetStaticPaths;
+
+interface Props { service: Service }
+const { service: item } = Astro.props;
+
+const crumbs = [
+  { name: 'Soluções', href: '/#solucoes' },
+  { name: item.title },
+];
+const others = services.filter((s) => s.path !== item.path).slice(0, 4);
+const stepIcons = ['compass', 'workflow', 'check'] as const;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: item.title,
+  serviceType: item.title,
+  description: item.description,
+  url: new URL(item.path, Astro.site).href,
+  provider: { '@id': new URL('/#organization', Astro.site).href },
+  areaServed: { '@type': 'Country', name: 'Brasil' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: `O que inclui — ${item.title}`,
+    itemListElement: item.includes.map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+  },
+};
+---
+<BaseLayout title={item.seo.title} description={item.seo.description} breadcrumbs={[{ name: 'Soluções', href: '/#solucoes' }, { name: item.title, href: item.path }]} schema={[serviceSchema]}>
+  <Breadcrumb items={[{ name: 'Início', href: '/' }, ...crumbs]} />
+
+  {item.partners && (
+    <div class="partner-ribbon">
+      <span class="eyebrow">Experiência em plataformas</span>
+      <ul role="list" class="partner-list">
+        {item.partners.map((partner) => <li class="partner-chip"><Icon name="check" />{partner}</li>)}
+      </ul>
+    </div>
+  )}
+
+  <section class="service-hero section-wrap">
+    <div class="service-hero-copy">
+      <span class="eyebrow eyebrow-pill"><span class="status-dot"></span> {item.eyebrow}</span>
+      <h1>{item.h1Lead}<br /><em>{item.h1Accent}</em></h1>
+      <p class="service-subtitle">{item.subtitle}</p>
+      <p>{item.description}</p>
+      <div class="hero-actions">
+        <Cta text="Solicitar uma conversa" />
+        <a class="button button-quiet" href={TEL_URL}>Ligar {SITE.phoneDisplay}</a>
+      </div>
+    </div>
+    <div class="service-hero-art" aria-hidden="true">
+      <div class="service-art-circle"></div>
+      <div class="service-art-icon"><Icon name={item.icon} /></div>
+      <span class="service-art-chip chip-one"><Icon name="check" /> Estratégia</span>
+      <span class="service-art-chip chip-two"><Icon name="sparkles" /> Evolução</span>
+      <span class="service-art-caption">Tecnologia que acompanha<br />o momento do seu negócio</span>
+    </div>
+  </section>
+
+  <section class="service-facts-band" aria-label="Como trabalhamos">
+    <div class="section-wrap service-facts-inner">
+      <div><span class="eyebrow">Com atenção a</span><b>Seu cenário</b><small>Objetivos e desafios reais</small></div>
+      <div><span class="eyebrow">Com trabalho em</span><b>Parceria</b><small>Planejamento e acompanhamento</small></div>
+      <div><span class="eyebrow">Com foco em</span><b>Evolução</b><small>Aprender, medir e ajustar</small></div>
+    </div>
+  </section>
+
+  <section class="section-wrap service-detail-section">
+    <div class="service-detail-intro">
+      <SectionHeading eyebrow="O que muda para sua operação" description={item.description}>
+        Uma solução pensada para <em>seu contexto.</em>
+      </SectionHeading>
+    </div>
+    <div class="benefit-columns">
+      <div class="detail-card detail-card-green">
+        <span class="eyebrow eyebrow-light">Benefícios</span>
+        <h3>O que você pode esperar</h3>
+        <ul class="check-list">{item.benefits.map((text) => <li><Icon name="check" /><span>{text}</span></li>)}</ul>
+      </div>
+      <div class="detail-card detail-card-cream">
+        <span class="eyebrow">O que inclui</span>
+        <h3>Do planejamento ao acompanhamento</h3>
+        <ul class="check-list">{item.includes.map((text) => <li><Icon name="check" /><span>{text}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-process-band">
+    <div class="section-wrap">
+      <SectionHeading eyebrow="Como funciona" description="O trabalho é organizado em etapas para que prioridades e próximos passos fiquem claros.">
+        Etapas simples, conversa <em>transparente.</em>
+      </SectionHeading>
+      <ol class="service-steps" role="list">
+        {item.process.map(([title, body], index) => (
+          <li class="service-step">
+            <span class="step-index" aria-hidden="true">0{index + 1}</span>
+            <span class="step-marker" aria-hidden="true"><Icon name={stepIcons[index] ?? 'check'} /></span>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {item.related && (
+    <section class="section-wrap related-section">
+      <SectionHeading eyebrow="Uma plataforma em destaque">Conheça o trabalho com <em>Nuvemshop.</em></SectionHeading>
+      <ServiceCard href={NUVEMSHOP_PATH} title="Nuvemshop" text="Implementação, personalização e suporte para sua loja virtual." icon="store" />
+    </section>
+  )}
+
+  <section class="section-wrap service-cta-section">
+    <div class="service-cta-card">
+      <div>
+        <span class="eyebrow">Vamos conversar?</span>
+        <h2>Pronto para começar?</h2>
+        <p>Entre em contato e descubra como esta solução pode fazer sentido para sua operação.</p>
+      </div>
+      <div class="service-cta-actions">
+        <Cta text="Solicitar orçamento" />
+        <a href={MAIL_URL} class="text-link">Enviar e-mail <Icon name="arrow" /></a>
+        <a href={TEL_URL} class="text-link">Ligar {SITE.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-wrap more-solutions">
+    <div class="more-solutions-heading">
+      <SectionHeading eyebrow="Veja também">Outras soluções para <em>sua operação.</em></SectionHeading>
+    </div>
+    <div class="more-solutions-links">
+      {others.map((s) => (
+        <a class="solution-list-link" href={s.path}><Icon name={s.icon} /><span>{s.title}</span><Icon name="arrow" /></a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

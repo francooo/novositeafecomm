@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from '../data/icons';
+interface Props { href: string; title: string; text: string; icon: IconName; headingTag?: 'h2' | 'h3' }
+const { href, title, text, icon, headingTag: H = 'h3' } = Astro.props;
+---
+<article class="service-card">
+  <div class="service-card-top"><span class="icon-tile"><Icon name={icon} /></span><span class="card-arrow" aria-hidden="true">↗</span></div>
+  <H>{title}</H>
+  <p>{text}</p>
+  <a class="service-card-link" href={href}>Conheça a solução<span class="sr-only">: {title}</span> <Icon name="arrow" /></a>
+</article>

@@ -1,0 +1,14 @@
+---
+/** Trilha visível. O JSON-LD BreadcrumbList correspondente é emitido pelo layout. */
+export interface Crumb { name: string; href?: string }
+interface Props { items: Crumb[] }
+const { items } = Astro.props;
+---
+<nav class="breadcrumb section-wrap" aria-label="Trilha de navegação">
+  {items.map((c, i) => (
+    <>
+      {i > 0 && <span aria-hidden="true">/</span>}
+      {c.href ? <a class="breadcrumb-link" href={c.href}>{c.name}</a> : <b aria-current="page">{c.name}</b>}
+    </>
+  ))}
+</nav>

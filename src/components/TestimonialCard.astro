@@ -1,0 +1,11 @@
+---
+import type { Testimonial } from '../data/content';
+interface Props { item: Testimonial }
+const { item } = Astro.props;
+const initials = item.name.split(' ').map((p) => p[0]).slice(0, 2).join('');
+---
+<figure class="testimonial-card">
+  <div class="quote-mark" aria-hidden="true">“</div>
+  <blockquote>{item.quote}</blockquote>
+  <figcaption class="testimonial-author"><span class="avatar-initials" aria-hidden="true">{initials}</span><span><b>{item.name}</b><small>{item.role}</small></span></figcaption>
+</figure>

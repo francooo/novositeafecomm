@@ -1,0 +1,195 @@
+---
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-500.css';
+import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/dm-sans/latin-700.css';
+import '@fontsource/playfair-display/latin-500.css';
+import '@fontsource/playfair-display/latin-600.css';
+import '@fontsource/playfair-display/latin-700.css';
+import '@fontsource/playfair-display/latin-500-italic.css';
+import '@fontsource/playfair-display/latin-600-italic.css';
+import playfair500 from '@fontsource/playfair-display/files/playfair-display-latin-500-normal.woff2?url';
+import dmSans400 from '@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url';
+import '../styles/global.css';
+
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import heroImage from '../assets/hero-home.png';
+import { SITE, WA_URL } from '../data/site';
+import type { Crumb } from '../components/Breadcrumb.astro';
+
+interface Props {
+  /** <title> completo (≤ 60 caracteres). */
+  title: string;
+  /** meta description (≤ 155 caracteres). */
+  description: string;
+  /** Imagem base para Open Graph (recortada para 1200×630). */
+  ogImage?: ImageMetadata;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  /** Trilha para o JSON-LD BreadcrumbList (Início é adicionado automaticamente). */
+  breadcrumbs?: Crumb[];
+  /** Blocos JSON-LD adicionais específicos da página. */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  ogImage = heroImage,
+  ogImageAlt = 'AF Negócios Digitais — tecnologia e parceria para e-commerce',
+  ogType = 'website',
+  noindex = false,
+  breadcrumbs,
+  schema = [],
+} = Astro.props;
+
+const site = Astro.site!;
+// Com build.format 'file', a home chega como /index.html; normaliza para URLs limpas.
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/(^|\/)index$/, '').replace(/\/$/, '') || '/';
+const canonical = new URL(path, site).href;
+
+const og = await getImage({ src: ogImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 82 });
+const ogUrl = new URL(og.src, site).href;
+
+const orgId = new URL('/#organization', site).href;
+const websiteId = new URL('/#website', site).href;
+
+const baseSchema: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': orgId,
+    name: SITE.name,
+    alternateName: 'AF E-commerce',
+    slogan: SITE.tagline,
+    description: SITE.description,
+    url: new URL('/', site).href,
+    logo: new URL('/logo.png', site).href,
+    image: ogUrl,
+    telephone: SITE.phoneLink,
+    email: SITE.email,
+    foundingDate: SITE.foundingYear,
+    areaServed: { '@type': 'Country', name: 'Brasil' },
+    knowsLanguage: 'pt-BR',
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        telephone: SITE.phoneLink,
+        email: SITE.email,
+        url: WA_URL,
+        availableLanguage: 'Portuguese',
+        areaServed: 'BR',
+      },
+    ],
+    ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: new URL('/', site).href,
+    name: SITE.name,
+    inLanguage: 'pt-BR',
+    publisher: { '@id': orgId },
+  },
+];
+
+if (breadcrumbs?.length) {
+  const trail: Crumb[] = [{ name: 'Início', href: '/' }, ...breadcrumbs];
+  baseSchema.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: new URL(c.href ?? path, site).href,
+    })),
+  });
+}
+
+const jsonLd = [...baseSchema, ...schema];
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+
+    <link rel="preload" href={playfair500} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dmSans400} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#f7f4ec" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    <main id="conteudo" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      const nav = document.querySelector<HTMLElement>('[data-main-nav]');
+      const services = document.querySelector<HTMLDetailsElement>('[data-nav-services]');
+
+      const setMenu = (open: boolean) => {
+        nav?.classList.toggle('is-open', open);
+        toggle?.setAttribute('aria-expanded', String(open));
+        toggle?.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      };
+
+      toggle?.addEventListener('click', () => setMenu(!nav?.classList.contains('is-open')));
+
+      // Fecha o mega-menu ao clicar fora ou pressionar Escape.
+      document.addEventListener('click', (event) => {
+        if (services?.open && !services.contains(event.target as Node)) services.open = false;
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (services?.open) {
+          services.open = false;
+          services.querySelector('summary')?.focus();
+        }
+        if (nav?.classList.contains('is-open')) {
+          setMenu(false);
+          toggle?.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

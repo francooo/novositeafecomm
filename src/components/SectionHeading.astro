@@ -1,0 +1,10 @@
+---
+/** Eyebrow + H2 + descrição. Use o slot "title" para trechos em <em>. */
+interface Props { eyebrow: string; description?: string; tag?: 'h2' | 'h3' }
+const { eyebrow, description, tag: Tag = 'h2' } = Astro.props;
+---
+<div class="section-heading">
+  <span class="eyebrow">{eyebrow}</span>
+  <Tag><slot /></Tag>
+  {description && <p>{description}</p>}
+</div>

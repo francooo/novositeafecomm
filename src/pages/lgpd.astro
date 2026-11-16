@@ -1,0 +1,98 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { SITE, LEGAL, MAIL_URL, WA_URL } from '../data/site';
+
+const toc = [
+  { id: 'compromisso', label: 'Nosso compromisso' },
+  { id: 'principios', label: 'Princípios que seguimos' },
+  { id: 'direitos', label: 'Seus direitos' },
+  { id: 'como-exercer', label: 'Como fazer um pedido' },
+  { id: 'encarregado', label: 'Canal de privacidade' },
+  { id: 'anpd', label: 'Autoridade Nacional (ANPD)' },
+];
+
+const rights: [string, string][] = [
+  ['Confirmação e acesso', 'Saber se tratamos dados seus e receber uma cópia das informações que temos.'],
+  ['Correção', 'Pedir a atualização de dados incompletos, inexatos ou desatualizados.'],
+  ['Anonimização, bloqueio ou eliminação', 'Quando os dados forem desnecessários, excessivos ou tratados em desacordo com a LGPD.'],
+  ['Portabilidade', 'Solicitar o envio dos seus dados a outro fornecedor, observados os segredos comercial e industrial.'],
+  ['Eliminação dos dados consentidos', 'Pedir a exclusão de dados tratados com base no seu consentimento, salvo hipóteses legais de guarda.'],
+  ['Informação sobre compartilhamento', 'Saber com quais entidades públicas e privadas compartilhamos seus dados.'],
+  ['Informação sobre o consentimento', 'Saber quando é possível não consentir e quais as consequências disso.'],
+  ['Revogação do consentimento', 'Retirar, a qualquer momento, um consentimento que você tenha dado.'],
+  ['Oposição', 'Opor-se a um tratamento feito com base em outra hipótese legal, se houver descumprimento da LGPD.'],
+  ['Revisão de decisões automatizadas', 'Pedir a revisão de decisões tomadas apenas com base em tratamento automatizado. Hoje, não tomamos esse tipo de decisão.'],
+];
+---
+<LegalPage
+  path="/lgpd"
+  seoTitle="LGPD: Seus Direitos sobre Dados | AF Negócios Digitais"
+  seoDescription="Como a AF Negócios Digitais aplica a LGPD (Lei 13.709/2018): princípios, direitos do titular e como solicitar acesso, correção ou exclusão dos seus dados."
+  eyebrow="LGPD"
+  titleLead="Seus dados,"
+  titleAccent="seus direitos."
+  lead="A Lei Geral de Proteção de Dados (Lei nº 13.709/2018) garante a você controle sobre suas informações pessoais. Aqui explicamos como aplicamos a lei e como você pode exercer seus direitos."
+  icon="check"
+  markText="Proteção de dados<br />com responsabilidade"
+  toc={toc}
+>
+  <section id="compromisso">
+    <h2><span class="legal-num">01</span> Nosso compromisso</h2>
+    <p>Na AF Negócios Digitais, privacidade faz parte da forma como trabalhamos: coletamos apenas o necessário para atender você, explicamos o motivo de cada uso e mantemos um canal aberto para qualquer pedido sobre seus dados.</p>
+    <p>Os detalhes sobre quais dados tratamos, por que, com quem compartilhamos e por quanto tempo guardamos estão na nossa <a href="/privacidade">Política de Privacidade</a>.</p>
+  </section>
+
+  <section id="principios">
+    <h2><span class="legal-num">02</span> Princípios que seguimos</h2>
+    <p>Todo tratamento de dados que realizamos observa os princípios do artigo 6º da LGPD:</p>
+    <ul>
+      <li><strong>Finalidade e adequação</strong>: usamos os dados apenas para propósitos legítimos, específicos e informados a você;</li>
+      <li><strong>Necessidade</strong>: tratamos somente o mínimo de dados necessário;</li>
+      <li><strong>Livre acesso e transparência</strong>: você pode consultar, de forma fácil e gratuita, como seus dados são tratados;</li>
+      <li><strong>Qualidade dos dados</strong>: buscamos manter as informações exatas e atualizadas;</li>
+      <li><strong>Segurança e prevenção</strong>: adotamos medidas para proteger os dados e evitar danos;</li>
+      <li><strong>Não discriminação</strong>: nunca usamos dados para fins discriminatórios, ilícitos ou abusivos;</li>
+      <li><strong>Responsabilização</strong>: mantemos práticas que demonstram o cumprimento da lei.</li>
+    </ul>
+  </section>
+
+  <section id="direitos">
+    <h2><span class="legal-num">03</span> Seus direitos como titular</h2>
+    <p>O artigo 18 da LGPD garante a você os seguintes direitos em relação aos dados pessoais que tratamos:</p>
+    <div class="legal-rights">
+      {rights.map(([title, text]) => (
+        <article><h3>{title}</h3><p>{text}</p></article>
+      ))}
+    </div>
+  </section>
+
+  <section id="como-exercer">
+    <h2><span class="legal-num">04</span> Como fazer um pedido</h2>
+    <p>Para exercer qualquer um desses direitos, envie um e-mail para <a href={MAIL_URL}>{SITE.email}</a> com o assunto <strong>"LGPD — Solicitação do titular"</strong>, informando:</p>
+    <ul>
+      <li>seu nome completo e o e-mail ou telefone usado no contato conosco;</li>
+      <li>qual direito você deseja exercer e, se possível, os detalhes do pedido.</li>
+    </ul>
+    <p>Para proteger você, podemos pedir informações adicionais que confirmem a sua identidade antes de atender à solicitação. O atendimento é <strong>gratuito</strong>.</p>
+    <div class="legal-callout">
+      <p><strong>Prazos de resposta:</strong> a confirmação de existência ou o acesso aos dados em formato simplificado é fornecido de imediato. Uma declaração completa, com origem dos dados, critérios utilizados e finalidade do tratamento, é enviada em até 15 dias a partir do seu pedido, conforme o artigo 19 da LGPD.</p>
+    </div>
+    <p>Se não pudermos atender a algum pedido, por exemplo, quando a lei exigir que determinados dados sejam guardados, explicaremos o motivo.</p>
+  </section>
+
+  <section id="encarregado">
+    <h2><span class="legal-num">05</span> Canal de privacidade</h2>
+    {LEGAL.dpoName ? (
+      <p>O encarregado pelo tratamento de dados pessoais (DPO) da AF Negócios Digitais é <strong>{LEGAL.dpoName}</strong>, que pode ser contatado pelo e-mail <a href={MAIL_URL}>{SITE.email}</a>.</p>
+    ) : (
+      <p>Nosso canal de comunicação para assuntos de privacidade e proteção de dados é o e-mail <a href={MAIL_URL}>{SITE.email}</a>. Por ele, você pode tirar dúvidas, fazer solicitações e enviar reclamações sobre o tratamento dos seus dados.</p>
+    )}
+    <p>Também é possível iniciar a conversa pelo <a href={WA_URL} target="_blank" rel="noopener noreferrer">WhatsApp {SITE.phoneDisplay}</a>. Por segurança, pedidos que envolvam a entrega ou exclusão de dados serão formalizados por e-mail.</p>
+  </section>
+
+  <section id="anpd">
+    <h2><span class="legal-num">06</span> Autoridade Nacional de Proteção de Dados</h2>
+    <p>A Autoridade Nacional de Proteção de Dados (ANPD) é o órgão responsável por fiscalizar o cumprimento da LGPD no Brasil. Se você entender que seu pedido não foi atendido adequadamente, pode apresentar uma petição à ANPD.</p>
+    <p>Recomendamos, antes disso, falar com a gente: queremos resolver qualquer questão de forma rápida e direta. Mais informações estão disponíveis no <a href="https://www.gov.br/anpd" target="_blank" rel="noopener noreferrer">site oficial da ANPD</a>.</p>
+  </section>
+</LegalPage>

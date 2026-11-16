@@ -1,0 +1,123 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { SITE, LEGAL, MAIL_URL } from '../data/site';
+
+const controller = [LEGAL.legalName || SITE.name, LEGAL.cnpj && `CNPJ ${LEGAL.cnpj}`, LEGAL.address && `com sede em ${LEGAL.address}`]
+  .filter(Boolean)
+  .join(', ');
+
+const toc = [
+  { id: 'quem-somos', label: 'Quem é o responsável' },
+  { id: 'dados-coletados', label: 'Dados que coletamos' },
+  { id: 'finalidades', label: 'Para que usamos' },
+  { id: 'bases-legais', label: 'Bases legais' },
+  { id: 'compartilhamento', label: 'Compartilhamento' },
+  { id: 'cookies', label: 'Cookies' },
+  { id: 'retencao', label: 'Por quanto tempo guardamos' },
+  { id: 'seguranca', label: 'Segurança' },
+  { id: 'direitos', label: 'Seus direitos' },
+  { id: 'alteracoes', label: 'Alterações e contato' },
+];
+---
+<LegalPage
+  path="/privacidade"
+  seoTitle="Política de Privacidade | AF Negócios Digitais"
+  seoDescription="Saiba quais dados a AF Negócios Digitais trata quando você visita o site ou entra em contato, para que são usados e como exercer seus direitos pela LGPD."
+  eyebrow="Política de Privacidade"
+  titleLead="Seus dados tratados com"
+  titleAccent="clareza e cuidado."
+  lead="Esta política explica, de forma direta, quais informações tratamos quando você visita nosso site ou fala com a gente, por que fazemos isso e como você pode exercer seus direitos."
+  icon="hand"
+  markText="Transparência<br />em cada etapa"
+  toc={toc}
+>
+  <section id="quem-somos">
+    <h2><span class="legal-num">01</span> Quem é o responsável pelos seus dados</h2>
+    <p>O responsável (controlador) pelo tratamento dos dados pessoais descritos nesta política é a <strong>{controller}</strong>, empresa especializada em consultoria e soluções para e-commerce.</p>
+    <p>Esta política se aplica ao site <a href="/">{new URL(Astro.site!).host}</a> e aos canais de atendimento divulgados nele (e-mail, telefone e WhatsApp). Ela segue a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 — LGPD) e o Marco Civil da Internet (Lei nº 12.965/2014).</p>
+  </section>
+
+  <section id="dados-coletados">
+    <h2><span class="legal-num">02</span> Dados que coletamos</h2>
+    <div class="legal-callout">
+      <p><strong>Nosso site não possui cadastro, área de login nem banco de dados de visitantes.</strong> O formulário de contato não envia nem armazena nada no site: ele apenas prepara uma mensagem no seu próprio aplicativo de e-mail, que só é enviada se você decidir enviá-la.</p>
+    </div>
+    <h3>Dados que você nos envia</h3>
+    <p>Quando você entra em contato por e-mail, WhatsApp ou telefone, recebemos as informações que você escolher compartilhar, como:</p>
+    <ul>
+      <li>nome e, se informado, empresa e cargo;</li>
+      <li>e-mail e/ou número de telefone;</li>
+      <li>o conteúdo da mensagem, como a descrição do seu projeto, operação ou desafio.</li>
+    </ul>
+    <p>Pedimos que você não envie dados sensíveis (como informações de saúde, religião ou biometria) nem dados de terceiros sem autorização deles.</p>
+    <h3>Dados de navegação</h3>
+    <p>Como qualquer site, o servidor de hospedagem registra automaticamente informações técnicas de acesso, como endereço IP, data e hora da visita, página acessada, tipo de navegador e dispositivo. Esses registros são usados apenas para segurança, funcionamento e diagnóstico do site.</p>
+  </section>
+
+  <section id="finalidades">
+    <h2><span class="legal-num">03</span> Para que usamos seus dados</h2>
+    <ul>
+      <li>Responder ao seu contato, entender a sua necessidade e enviar propostas ou orçamentos que você solicitou;</li>
+      <li>Conduzir conversas e reuniões preliminares para uma possível contratação dos nossos serviços;</li>
+      <li>Manter o histórico do atendimento para dar continuidade à conversa;</li>
+      <li>Garantir a segurança, a estabilidade e o bom funcionamento do site;</li>
+      <li>Cumprir obrigações legais e regulatórias, incluindo a guarda de registros de acesso exigida pelo Marco Civil da Internet.</li>
+    </ul>
+    <p>Não usamos seus dados para tomar decisões automatizadas e não os vendemos a ninguém.</p>
+  </section>
+
+  <section id="bases-legais">
+    <h2><span class="legal-num">04</span> Bases legais</h2>
+    <p>Tratamos dados pessoais apenas quando há uma base legal prevista no artigo 7º da LGPD:</p>
+    <ul>
+      <li><strong>Procedimentos preliminares a um contrato</strong>: responder ao seu pedido de contato, proposta ou orçamento;</li>
+      <li><strong>Execução de contrato</strong>: quando você se torna cliente;</li>
+      <li><strong>Legítimo interesse</strong>: segurança do site e continuidade do relacionamento, sempre respeitando seus direitos e expectativas;</li>
+      <li><strong>Cumprimento de obrigação legal</strong>: guarda de registros de acesso e atendimento a autoridades competentes.</li>
+    </ul>
+  </section>
+
+  <section id="compartilhamento">
+    <h2><span class="legal-num">05</span> Com quem compartilhamos</h2>
+    <p>Seus dados só são compartilhados com quem nos ajuda a operar, sempre na medida necessária:</p>
+    <ul>
+      <li><strong>Provedores de hospedagem do site</strong>, que processam os registros técnicos de acesso;</li>
+      <li><strong>Provedores de e-mail e de mensagens</strong> (como o WhatsApp, da Meta), quando você escolhe falar conosco por esses canais. O uso desses aplicativos também segue as políticas de privacidade de cada um;</li>
+      <li><strong>Autoridades públicas</strong>, quando houver obrigação legal ou ordem judicial.</li>
+    </ul>
+    <p>Alguns desses fornecedores podem armazenar dados em servidores fora do Brasil. Nesses casos, a transferência internacional ocorre nas hipóteses permitidas pelo artigo 33 da LGPD, com fornecedores que adotam padrões adequados de proteção.</p>
+  </section>
+
+  <section id="cookies">
+    <h2><span class="legal-num">06</span> Cookies</h2>
+    <p>Atualmente, nosso site <strong>não utiliza cookies de publicidade, de rastreamento ou de análise de comportamento</strong>. As fontes e imagens são servidas pelo próprio site, sem chamadas a serviços de terceiros durante a navegação.</p>
+    <p>Se no futuro passarmos a usar ferramentas de medição de audiência ou publicidade, esta política será atualizada e, quando exigido, pediremos o seu consentimento antes de ativar esses cookies.</p>
+  </section>
+
+  <section id="retencao">
+    <h2><span class="legal-num">07</span> Por quanto tempo guardamos</h2>
+    <ul>
+      <li><strong>Mensagens e dados de contato</strong>: pelo tempo necessário para o atendimento e a negociação. Se não houver contratação, eliminamos ou anonimizamos esses dados em até 24 meses após o último contato, salvo se você pedir a exclusão antes;</li>
+      <li><strong>Dados de clientes</strong>: durante o contrato e pelos prazos exigidos pela legislação fiscal, contábil e civil;</li>
+      <li><strong>Registros de acesso ao site</strong>: pelo prazo mínimo de 6 meses, conforme o artigo 15 do Marco Civil da Internet.</li>
+    </ul>
+  </section>
+
+  <section id="seguranca">
+    <h2><span class="legal-num">08</span> Segurança</h2>
+    <p>Adotamos medidas técnicas e administrativas para proteger seus dados contra acessos não autorizados, perdas e vazamentos, como conexão criptografada (HTTPS) em todo o site, acesso restrito às informações de atendimento e uso de fornecedores com práticas reconhecidas de segurança.</p>
+    <p>Nenhum sistema é totalmente imune a riscos. Se ocorrer um incidente de segurança que possa gerar risco ou dano relevante a você, comunicaremos os titulares afetados e a Autoridade Nacional de Proteção de Dados (ANPD), conforme a LGPD.</p>
+  </section>
+
+  <section id="direitos">
+    <h2><span class="legal-num">09</span> Seus direitos</h2>
+    <p>Você pode, a qualquer momento, pedir a confirmação de que tratamos seus dados, acessá-los, corrigi-los, solicitar a eliminação, a portabilidade ou se opor a um tratamento, entre outros direitos garantidos pelo artigo 18 da LGPD.</p>
+    <p>Explicamos cada um desses direitos e como exercê-los na página <a href="/lgpd">LGPD e seus direitos</a>. Para fazer um pedido, basta escrever para <a href={MAIL_URL}>{SITE.email}</a>.</p>
+  </section>
+
+  <section id="alteracoes">
+    <h2><span class="legal-num">10</span> Alterações e contato</h2>
+    <p>Podemos atualizar esta política para refletir mudanças no site, nos nossos serviços ou na legislação. A data da última atualização fica sempre indicada no topo desta página. Em mudanças relevantes, daremos destaque ao aviso no site.</p>
+    <p>Para dúvidas sobre esta política ou sobre o tratamento dos seus dados, fale com a gente pelo e-mail <a href={MAIL_URL}>{SITE.email}</a>.</p>
+  </section>
+</LegalPage>

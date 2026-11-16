@@ -1,0 +1,99 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { SITE, LEGAL, MAIL_URL } from '../data/site';
+
+const owner = [LEGAL.legalName || SITE.name, LEGAL.cnpj && `CNPJ ${LEGAL.cnpj}`].filter(Boolean).join(', ');
+
+const toc = [
+  { id: 'aceitacao', label: 'Aceitação dos termos' },
+  { id: 'sobre-o-site', label: 'Sobre o site' },
+  { id: 'uso', label: 'Uso adequado' },
+  { id: 'propriedade', label: 'Propriedade intelectual' },
+  { id: 'informacoes', label: 'Informações publicadas' },
+  { id: 'contratacao', label: 'Contratação de serviços' },
+  { id: 'links', label: 'Links de terceiros' },
+  { id: 'responsabilidade', label: 'Responsabilidade' },
+  { id: 'privacidade', label: 'Privacidade' },
+  { id: 'legislacao', label: 'Alterações e legislação' },
+];
+---
+<LegalPage
+  path="/termos"
+  seoTitle="Termos de Uso | AF Negócios Digitais"
+  seoDescription="Condições de uso do site da AF Negócios Digitais: finalidade do conteúdo, propriedade intelectual, contratação de serviços e legislação aplicável."
+  eyebrow="Termos de Uso"
+  titleLead="Regras claras para"
+  titleAccent="uma boa parceria."
+  lead="Estes termos explicam as condições para usar o site da AF Negócios Digitais. Ao navegar por ele, você concorda com o que está descrito abaixo."
+  icon="window"
+  markText="Combinados<br />transparentes"
+  toc={toc}
+>
+  <section id="aceitacao">
+    <h2><span class="legal-num">01</span> Aceitação dos termos</h2>
+    <p>Este site é mantido pela <strong>{owner}</strong> ("AF", "nós"). Ao acessar e usar o site, você declara que leu e concorda com estes Termos de Uso e com a nossa <a href="/privacidade">Política de Privacidade</a>. Se não concordar, recomendamos não utilizar o site.</p>
+  </section>
+
+  <section id="sobre-o-site">
+    <h2><span class="legal-num">02</span> Sobre o site</h2>
+    <p>O site tem caráter <strong>institucional e informativo</strong>. Ele apresenta a AF, nossas soluções para e-commerce (como consultoria, desenvolvimento de lojas virtuais, Nuvemshop, ERP, integrações, automação, inteligência artificial, BI e tráfego pago) e os canais para você falar com a nossa equipe.</p>
+    <p>O acesso é gratuito e não exige cadastro. Podemos alterar, suspender ou descontinuar qualquer parte do site a qualquer momento, sem aviso prévio.</p>
+  </section>
+
+  <section id="uso">
+    <h2><span class="legal-num">03</span> Uso adequado</h2>
+    <p>Ao usar o site, você se compromete a não:</p>
+    <ul>
+      <li>utilizá-lo para fins ilegais ou que violem direitos de terceiros;</li>
+      <li>tentar acessar áreas restritas, sistemas ou servidores sem autorização, ou interferir no funcionamento do site;</li>
+      <li>usar robôs, scripts ou outros meios automatizados para sobrecarregar o site ou copiar seu conteúdo em massa;</li>
+      <li>enviar, pelos nossos canais de contato, conteúdo ofensivo, falso, malicioso ou com vírus;</li>
+      <li>se passar por outra pessoa ou empresa ao entrar em contato conosco.</li>
+    </ul>
+  </section>
+
+  <section id="propriedade">
+    <h2><span class="legal-num">04</span> Propriedade intelectual</h2>
+    <p>Os textos, o layout, a identidade visual, o monograma e a marca AF Negócios Digitais, os ícones, as imagens e demais elementos do site pertencem à AF ou são usados com autorização, e são protegidos pela legislação de direitos autorais e de propriedade industrial.</p>
+    <p>Você pode compartilhar links para as nossas páginas livremente. A reprodução, modificação ou uso comercial do conteúdo depende de autorização prévia por escrito.</p>
+    <p>Marcas de terceiros citadas no site (como Nuvemshop, Olist ERP Tiny, Linx Commerce, Uappi, Shopify, VTEX, WooCommerce, Google e Meta) pertencem aos seus respectivos titulares e são mencionadas apenas para identificar plataformas com as quais trabalhamos.</p>
+  </section>
+
+  <section id="informacoes">
+    <h2><span class="legal-num">05</span> Informações publicadas</h2>
+    <p>Buscamos manter as informações do site corretas e atualizadas, mas elas têm caráter geral e podem mudar sem aviso. Em especial:</p>
+    <ul>
+      <li><strong>prazos e resultados</strong> mencionados (por exemplo, em perguntas frequentes) são estimativas que dependem do contexto de cada negócio e não constituem garantia;</li>
+      <li><strong>depoimentos</strong> refletem a experiência individual de cada cliente e não garantem resultados iguais em outros projetos;</li>
+      <li>o conteúdo do site <strong>não substitui</strong> um diagnóstico específico da sua operação.</li>
+    </ul>
+  </section>
+
+  <section id="contratacao">
+    <h2><span class="legal-num">06</span> Contratação de serviços</h2>
+    <p>Nenhum serviço é contratado pelo site. A contratação acontece somente após uma conversa com a nossa equipe e a aceitação de uma <strong>proposta comercial ou contrato específico</strong>, que define escopo, prazos, valores e condições. Em caso de diferença entre estes termos e o contrato assinado, prevalece o contrato.</p>
+  </section>
+
+  <section id="links">
+    <h2><span class="legal-num">07</span> Links e serviços de terceiros</h2>
+    <p>O site pode conter links para serviços de terceiros, como o WhatsApp e sites de plataformas parceiras. Não controlamos esses serviços e não nos responsabilizamos pelo seu conteúdo, disponibilidade ou práticas de privacidade. Recomendamos ler os termos e as políticas de cada um.</p>
+  </section>
+
+  <section id="responsabilidade">
+    <h2><span class="legal-num">08</span> Limitação de responsabilidade</h2>
+    <p>Trabalhamos para manter o site disponível e seguro, mas não garantimos que ele estará livre de interrupções, erros ou indisponibilidades temporárias, por exemplo durante manutenções ou falhas de fornecedores.</p>
+    <p>Na extensão permitida pela lei, a AF não se responsabiliza por danos decorrentes do uso do site em desacordo com estes termos, de decisões tomadas apenas com base no conteúdo informativo publicado ou de falhas em serviços de terceiros. Nada nestes termos limita direitos garantidos pelo Código de Defesa do Consumidor.</p>
+  </section>
+
+  <section id="privacidade">
+    <h2><span class="legal-num">09</span> Privacidade e proteção de dados</h2>
+    <p>O tratamento dos dados pessoais que você compartilha conosco segue a nossa <a href="/privacidade">Política de Privacidade</a> e a Lei Geral de Proteção de Dados. Veja também como exercer seus direitos na página <a href="/lgpd">LGPD e seus direitos</a>.</p>
+  </section>
+
+  <section id="legislacao">
+    <h2><span class="legal-num">10</span> Alterações e legislação aplicável</h2>
+    <p>Estes termos podem ser atualizados a qualquer momento, e a versão vigente estará sempre publicada nesta página, com a data da última atualização indicada no topo.</p>
+    <p>Estes termos são regidos pelas leis da República Federativa do Brasil. Eventuais controvérsias serão resolvidas no foro previsto na legislação aplicável, respeitado o direito do consumidor de propor ações no foro do seu domicílio.</p>
+    <p>Dúvidas sobre estes termos podem ser enviadas para <a href={MAIL_URL}>{SITE.email}</a>.</p>
+  </section>
+</LegalPage>
