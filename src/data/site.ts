@@ -5,7 +5,7 @@ export const SITE = {
     'Consultoria, desenvolvimento de e-commerce, Nuvemshop, ERP, integrações, automação, IA e tráfego pago. Tecnologia e parceria para seu e-commerce crescer.',
   phoneDisplay: '(51) 98122-0279',
   phoneLink: '+5551981220279',
-  email: 'contato@afecomm.com.br',
+  email: 'andrewsfranco93@gmail.com',
   foundingYear: '2024',
   locale: 'pt_BR',
   /** Perfis oficiais (Instagram, LinkedIn…) para o schema `sameAs`. Preencher quando confirmados. */
