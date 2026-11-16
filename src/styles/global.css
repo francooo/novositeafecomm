@@ -592,3 +592,10 @@ ol.service-steps { margin-bottom: 0; }
   .legal-related .more-solutions-links { grid-template-columns: 1fr; }
   .legal-content p, .legal-content li { font-size: 13.5px; }
 }
+
+/* Espaço no fim do rodapé para o botão flutuante "Vamos conversar" não cobrir os links legais.
+   Desktop: botão 46px + 20px de margem. Mobile: 42px + 13px. */
+.site-footer { padding-bottom: 78px; }
+@media (max-width: 780px) {
+  .site-footer { padding-bottom: 66px; }
+}
